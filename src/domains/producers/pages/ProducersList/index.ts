@@ -1,0 +1,1 @@
+export { ProducersListPage } from './ProducersList';

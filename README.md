@@ -1,103 +1,179 @@
-# **Brain Agriculture - Teste Técnico v2**
+# Brain Agriculture
 
-Olá! Bem-vindo(a) ao nosso teste técnico. Estamos muito animados para conhecer mais sobre você, suas habilidades técnicas e sua forma de resolver problemas. Este teste foi pensado para ser um reflexo do que valorizamos em nosso time, e esperamos que você se sinta confortável e confiante durante o processo.
+Aplicação web desenvolvida com React, TypeScript e Vite para gerenciamento agrícola.
 
-## **O que queremos avaliar?**
+## Tecnologias
 
-Nosso objetivo com este teste é entender melhor como você:
+### Bibliotecas
+- React 19.2.0
+- TypeScript 5.9.3
+- Vite 7.2.2
+- Redux Toolkit 2.10.1
+- React Router DOM 7.9.6
+- Styled Components 6.1.19
+- Formik 2.4.9
+- Yup 1.7.1
+- use-mask-input 3.5.2
+- Recharts 3.4.1
 
-- Resolve problemas relacionados à lógica de programação e orientação a objetos.
-- Interpreta requisitos de negócio e os transforma em soluções técnicas.
-- Aplica boas práticas de desenvolvimento, com foco em código limpo, testável, de fácil manutenção e observável.
-- Garante que o sistema seja escalável e confiável, principalmente ao lidar com grande volume de dados.
-- Escreve documentações claras para facilitar a integração e manutenção por outros desenvolvedores ou clientes.
+### Testes
+- Jest 30.2.0
+- React Testing Library 16.3.0
+- Testing Library User Event 14.6.1
+- Testing Library Jest DOM 6.9.1
+- ts-jest 29.4.5
 
-**Dica:** Imagine que você está criando uma aplicação que será utilizada por clientes, parceiros ou até mesmo por outros desenvolvedores. Queremos ver sua atenção aos detalhes!
+### Qualidade de Código
+- ESLint 9.39.1 + TypeScript ESLint 8.46.3
+- Prettier 3.6.2
+- ESLint Plugin Jest 29.1.0
+- Husky 9.1.7 (Git Hooks)
+- Commitlint 20.1.0
 
-## **O que você precisa desenvolver?**
+## Configuração do Projeto
 
-A proposta é criar uma aplicação para gerenciar o cadastro de produtores rurais, com os seguintes dados:
+### Path Aliases
 
-- CPF ou CNPJ
-- Nome do produtor
-- Nome da fazenda (propriedade)
-- Cidade
-- Estado
-- Área total da fazenda (em hectares)
-- Área agricultável (em hectares)
-- Área de vegetação (em hectares)
-- Safras (ex: Safra 2021, Safra 2022)
-- Culturas plantadas (ex.: Soja na Safra 2021, Milho na Safra 2021, Café na Safra 2022)
+O projeto utiliza path aliases para facilitar imports:
 
-### **Requisitos de negócio**
+```typescript
+import { App } from '@/App';                    // Raiz do src/
+import { Dashboard } from '@dashboard';          // Domínio Dashboard
+import { ProducersListPage } from '@producers';  // Domínio Producers
+import { Button } from '@shared/ui';             // Componentes compartilhados
+import { useProducers } from '@shared/hooks';    // Hooks compartilhados
+```
 
-1. Permitir o cadastro, edição e exclusão de produtores rurais.
-2. Validar o CPF ou CNPJ fornecido pelo usuário.
-3. Garantir que a soma das áreas agricultável e de vegetação não ultrapasse a área total da fazenda.
-4. Permitir o registro de várias culturas plantadas por fazenda do produtor.
-5. Um produtor pode estar associado a 0, 1 ou mais propriedades rurais.
-6. Uma propriedade rural pode ter 0, 1 ou mais culturas plantadas por safra.
-7. Exibir um dashboard com:
-   - Total de fazendas cadastradas (quantidade).
-   - Total de hectares registrados (área total).
-   - Gráficos de pizza:
-     - Por estado.
-     - Por cultura plantada.
-     - Por uso do solo (área agricultável e vegetação).
+### Redux
 
----
+Store global configurado em `src/store/`:
+- `store/index.ts` - Configuração da store
+- `store/hooks.ts` - Hooks tipados (`useAppDispatch`, `useAppSelector`)
 
-## **Tecnologias sugeridas**
+Cada domínio possui seu próprio slice isolado (ex: `domains/producers/store/`)
 
-Sabemos que você pode ter seu próprio estilo, mas aqui estão algumas tecnologias e boas práticas que valorizamos:
+### Testes
 
-- **Conceitos**: SOLID, KISS, Clean Code, API Contracts, Testes, Arquitetura em camadas.
-- **Documentações**: Para facilitar o entendimento do funcionamento do sistema, é importante incluir um README claro, uma especificação OpenAPI e, caso necessário, diagramas que ajudem a visualizar a arquitetura ou os processos.
-- **Bônus**: Se conseguir disponibilizar a aplicação na nuvem e acessível via internet, será um diferencial!
+Configurado com Jest e React Testing Library:
+- Arquivos de teste: `*.test.tsx` ou `*.spec.tsx`
+- Todos os testes escritos em português
+- ESLint configurado para testes
 
-### **Se você for desenvolvedor FRONTEND:**
+```bash
+yarn test              # Executa todos os testes
+yarn test:watch        # Modo watch
+yarn test:coverage     # Com relatório de cobertura
+```
 
-- Utilize **TypeScript**.
-- Utilize **ReactJS**.
-- Use **Redux** para gerenciar o estado da aplicação.
-  - Se preferir, você pode usar **Context API** como alternativa ou complemento ao Redux (opcional).
-- Estruture dados "mockados" para simular cenários.
-- Desenvolva testes unitários com **Jest** e **React Testing Library**.
-- Estruture os componentes utilizando atomic design patterns.
-- Utilize css in js com bibliotecas como **Styled Components** ou **Emotion**.
-- Estruture o projeto como um microfrontend (opcional);
+### Git Hooks (Husky)
 
-### **Se você for desenvolvedor BACKEND:**
+Hooks configurados para garantir qualidade do código:
 
-- Desenvolva uma **API REST**.
-- Utilize **Docker** para distribuir a aplicação.
-- Utilize **Postgres** como banco de dados.
-- Crie os endpoints necessários para atender os requisitos de negócio.
-- Desenvolva testes unitários e integrados.
-- Estruture dados "mockados" para testes.
-- Inclua logs para garantir a observabilidade do sistema, facilitando o monitoramento e a identificação de possíveis problemas.
-- Utilize um framework de ORM.
+- **pre-commit**: Executa lint antes de cada commit
+- **commit-msg**: Valida mensagem de commit usando Commitlint
 
-#### **Se você for desenvolvedor BACKEND Node:**
+#### Padrão de Commits (Conventional Commits)
 
-- Utilize **TypeScript**.
-- Utilize **NestJS** ou **AdonisJS**
+As mensagens de commit devem seguir o formato:
 
-#### **Se você for desenvolvedor BACKEND Python:**
+```
+type(scope): subject
+```
 
-- Utilize **Python 3**.
-- Utilize **Django**, **Flask** ou **FastAPI**.
+**Tipos válidos:**
+- `feat`: Nova funcionalidade
+- `fix`: Correção de bug
+- `docs`: Documentação
+- `style`: Formatação de código
+- `refactor`: Refatoração
+- `test`: Adição ou correção de testes
+- `chore`: Tarefas de manutenção
 
-### **Se você for desenvolvedor FULLSTACK:**
+**Exemplos:**
+```bash
+git commit -m "feat: add user authentication"
+git commit -m "fix: resolve login bug"
+git commit -m "docs: update README"
+git commit -m "test: add unit tests for login"
+```
 
-- Conclua tanto o FRONTEND quanto o BACKEND, garantindo a integração entre eles.
+## Scripts Disponíveis
 
----
+```bash
+yarn dev            # Inicia servidor de desenvolvimento
+yarn build          # Build para produção
+yarn preview        # Preview da build
+yarn lint           # Executa linter
+yarn test           # Executa testes
+yarn test:watch     # Testes em modo watch
+yarn test:coverage  # Testes com cobertura
+```
 
-## **Como enviar seu projeto?**
+## Arquitetura
 
-Ao concluir o desenvolvimento, suba o código-fonte para um repositório no **GitHub** (ou outro provedor de sua escolha). Certifique-se de que o repositório seja público ou que possamos acessá-lo, e nos envie o link.
+O projeto segue uma arquitetura de **microfrontend-ready** baseada em **Domain-Driven Design (DDD)**.
 
----
+### Estrutura de Pastas
 
-**Nota final:** Queremos que você aproveite esse desafio para mostrar suas habilidades, mas também para aprender e se divertir. Se tiver dúvidas ou precisar de alguma orientação durante o processo, estamos aqui para ajudar! Boa sorte! 🌟
+```
+brain-agriculture/
+├── src/
+│   ├── domains/
+│   │   ├── dashboard/
+│   │   │   ├── pages/
+│   │   │   ├── routes.tsx
+│   │   │   └── index.ts
+│   │   ├── producers/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   ├── store/
+│   │   │   ├── routes.tsx
+│   │   │   └── index.ts
+│   │   └── shared/
+│   │       ├── ui/
+│   │       │   ├── atoms/
+│   │       │   ├── molecules/
+│   │       │   ├── templates/
+│   │       │   └── navigation/
+│   │       ├── lib/
+│   │       │   ├── validators/
+│   │       │   ├── formatters/
+│   │       │   ├── generators/
+│   │       │   ├── converters/
+│   │       │   └── helpers/
+│   │       ├── config/
+│   │       ├── hooks/
+│   │       └── types/
+│   ├── store/
+│   ├── routes/
+│   ├── styles/
+│   ├── App.tsx
+│   └── main.tsx
+├── .husky/
+├── jest.config.cjs
+├── commitlint.config.js
+├── eslint.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## Extensões Recomendadas
+
+- Prettier - Formatação de código
+- ESLint - Análise de código
+
+## Desenvolvimento
+
+1. Clone o repositório
+2. Instale as dependências: `npm install` ou `yarn`
+3. Rode o projeto: `npm run dev` ou `yarn dev`
+4. Acesse: `http://localhost:5173`
+
+## Qualidade de Código
+
+O projeto utiliza:
+- **ESLint** - Análise estática de código
+- **Prettier** - Formatação automática
+- **Husky** - Git hooks para garantir padrões
+- **Commitlint** - Validação de mensagens de commit
+- **Jest** - Testes unitários e de integração
